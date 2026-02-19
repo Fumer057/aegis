@@ -3,7 +3,7 @@ import { useSimulationStore } from '../../store/simulationStore';
 import { Bot, Terminal } from 'lucide-react';
 
 export const AIPanel = () => {
-    const { aiReasoningLog, status } = useSimulationStore();
+    const { aiReasoningLog = [], status } = useSimulationStore(); // 👈 default empty array
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -22,18 +22,21 @@ export const AIPanel = () => {
                 ref={scrollRef}
                 className="flex-1 overflow-y-auto font-mono text-xs space-y-1 pr-2"
             >
-                {aiReasoningLog.length === 0 ? (
+                {aiReasoningLog?.length === 0 ? (   // 👈 optional chaining added
                     <div className="text-gray-600 italic flex items-center gap-2">
                         <Terminal size={12} /> System Standby...
                     </div>
                 ) : (
-                    aiReasoningLog.map((log, i) => (
+                    aiReasoningLog?.map((log, i) => (  // 👈 safe map
                         <div key={i} className="animate-fade-in">
-                            <span className="text-aegis-primary/50 mr-2">[{new Date().toLocaleTimeString().split(' ')[0]}]</span>
+                            <span className="text-aegis-primary/50 mr-2">
+                                [{new Date().toLocaleTimeString().split(' ')[0]}]
+                            </span>
                             <span className="text-gray-300">{log}</span>
                         </div>
                     ))
                 )}
+
                 {status === 'EVADING' && (
                     <div className="text-aegis-secondary animate-pulse mt-2">
                         » EXECUTION IN PROGRESS...
