@@ -12,34 +12,34 @@ export const OptimizationVisualizer = () => {
     const lastStep = optimizationData[optimizationData.length - 1];
 
     return (
-        <div className="w-80 bg-aegis-bg/90 border border-aegis-secondary/50 p-4 rounded-lg backdrop-blur-md animate-slide-up">
-            <h3 className="text-aegis-secondary font-orbitron text-sm mb-2 border-b border-aegis-secondary/30 pb-1 flex items-center gap-2">
-                <TrendingUp size={16} /> ML OPTIMIZER
+        <div className="w-96 bg-black/95 border-2 border-aegis-secondary p-6 rounded-xl backdrop-blur-xl animate-slide-up shadow-[0_0_50px_rgba(0,255,100,0.2)]">
+            <h3 className="text-aegis-secondary font-orbitron text-lg mb-4 border-b border-aegis-secondary/50 pb-2 flex items-center gap-2 tracking-widest">
+                <TrendingUp size={24} /> ML VELOCITY OPTIMIZER
             </h3>
 
-            <div className="h-32 flex items-end gap-1 border-l border-b border-gray-700 p-1 relative">
+            <div className="h-48 flex items-end gap-1.5 border-l-2 border-b-2 border-gray-600 p-2 relative bg-gray-900/50 rounded-tr-lg">
                 {optimizationData?.map((step, i) => (
                     <div
                         key={i}
-                        className="flex-1 bg-aegis-secondary/30 hover:bg-aegis-secondary transition-all relative group"
-                        style={{ height: `${(step.cost / maxCost) * 100}%` }}
+                        className="flex-1 bg-gradient-to-t from-aegis-secondary/50 to-aegis-secondary hover:brightness-125 transition-all relative group rounded-t-sm"
+                        style={{ height: `${Math.max((step.cost / maxCost) * 100, 5)}%` }}
                     >
                         {/* Tooltip */}
-                        <div className="opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 -translate-x-1/2 bg-black text-xs text-white p-1 rounded whitespace-nowrap mb-1 z-10 pointer-events-none">
+                        <div className="opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 -translate-x-1/2 bg-white text-black font-bold text-xs p-2 rounded whitespace-nowrap mb-2 z-50 pointer-events-none shadow-lg">
                             V: {step.velocity?.toFixed(2)} | Cost: {step.cost?.toFixed(1)}
                         </div>
                     </div>
                 ))}
 
-                <div className="absolute top-2 right-2 text-xs text-gray-500 font-mono">
+                <div className="absolute top-2 right-2 text-xs text-aegis-secondary/70 font-mono bg-black/50 px-2 py-1 rounded">
                     Gradient Descent (Epoch {optimizationData.length})
                 </div>
             </div>
 
             {status === 'EVADING' && lastStep && (
-                <div className="mt-2 text-xs text-aegis-primary flex items-center gap-1">
-                    <CheckCircle2 size={12} />
-                    Optimal Solution Found: V={lastStep.velocity?.toFixed(2)}m/s
+                <div className="mt-4 text-sm text-white bg-aegis-secondary/20 border border-aegis-secondary/50 p-2 rounded flex items-center justify-center gap-2 font-bold animate-pulse">
+                    <CheckCircle2 size={18} className="text-aegis-secondary" />
+                    <span>OPTIMAL VELOCITY FOUND: {lastStep.velocity?.toFixed(2)} km/s</span>
                 </div>
             )}
         </div>

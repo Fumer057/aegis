@@ -18,6 +18,7 @@ interface SimulationState {
     // Actions
     setFuel: (amount: number) => void;
     setInitialParams: (alt: number, vel: number, fuel: number) => void;
+    updateTelemetry: (alt: number, vel: number) => void;
     consumeFuel: (amount: number) => void;
     setStatus: (status: SystemStatus) => void;
     setThreatDetected: (detected: boolean) => void;
@@ -40,6 +41,7 @@ export const useSimulationStore = create<SimulationState>((set, get) => ({
 
     setFuel: (amount) => set({ fuelCurrent: amount }),
     setInitialParams: (alt, vel, fuel) => set({ altitude: alt, velocity: vel, fuelStart: fuel, fuelCurrent: fuel }),
+    updateTelemetry: (alt, vel) => set({ altitude: alt, velocity: vel }),
     consumeFuel: (amount) => set((state) => ({
         fuelCurrent: Math.max(0, state.fuelCurrent - amount)
     })),
