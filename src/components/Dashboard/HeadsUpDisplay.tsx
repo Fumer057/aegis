@@ -36,6 +36,10 @@ export const HeadsUpDisplay = () => {
                 <div className="absolute top-4 right-4 space-y-4 flex flex-col items-end">
                     <ThreatPanel />
                     <AIPanel />
+                </div>
+
+                {/* Bottom Center - ML Visualizer */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 overflow-visible z-50">
                     <OptimizationVisualizer />
                 </div>
             </div>
