@@ -13,7 +13,7 @@ export const AIPanel = () => {
     }, [aiReasoningLog]);
 
     return (
-        <div className="absolute top-20 right-4 w-80 bg-aegis-bg/90 border border-aegis-primary/30 p-4 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(0,243,255,0.1)] flex flex-col h-64">
+        <div className="w-80 bg-aegis-bg/90 border border-aegis-primary/30 p-4 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(0,243,255,0.1)] flex flex-col h-64">
             <h3 className="text-aegis-primary font-orbitron text-sm mb-2 border-b border-aegis-primary/30 pb-1 flex items-center gap-2">
                 <Bot size={16} /> AEGIS AI ASSISTANT
             </h3>

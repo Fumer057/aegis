@@ -4,7 +4,7 @@ import { Activity, Gauge } from 'lucide-react';
 export const TelemetryPanel = () => {
     const { altitude, velocity } = useSimulationStore();
     return (
-        <div className="absolute top-4 left-4 w-64 bg-aegis-bg/80 border border-aegis-primary/30 p-4 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+        <div className="w-64 bg-aegis-bg/80 border border-aegis-primary/30 p-4 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(0,243,255,0.2)]">
             <h3 className="text-aegis-primary font-orbitron text-lg mb-2 border-b border-aegis-primary/30 pb-1 flex items-center gap-2">
                 <Activity size={18} /> TELEMETRY
             </h3>

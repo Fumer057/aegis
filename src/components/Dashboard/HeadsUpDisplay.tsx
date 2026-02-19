@@ -25,12 +25,19 @@ export const HeadsUpDisplay = () => {
 
             {/* Panels - Enable pointer events for them if they become interactive */}
             <div className="pointer-events-auto">
+                {/* Left Side */}
                 <ConfigPanel />
-                <TelemetryPanel />
-                <FuelPanel />
-                <ThreatPanel />
-                <AIPanel />
-                <OptimizationVisualizer />
+                <div className="absolute top-24 left-4 space-y-4">
+                    <TelemetryPanel />
+                    <FuelPanel />
+                </div>
+
+                {/* Right Side */}
+                <div className="absolute top-4 right-4 space-y-4 flex flex-col items-end">
+                    <ThreatPanel />
+                    <AIPanel />
+                    <OptimizationVisualizer />
+                </div>
             </div>
 
             {/* Controls */}

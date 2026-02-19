@@ -6,7 +6,7 @@ import { useSimulationStore } from '../../store/simulationStore';
 export const DebrisField = () => {
     const meshRef = useRef<InstancedMesh>(null);
     const { threatDetected } = useSimulationStore();
-    const count = 200;
+    const count = 1000;
 
     // Create random positions for debris
     const particles = useMemo(() => {

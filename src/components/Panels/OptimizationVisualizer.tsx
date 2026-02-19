@@ -12,7 +12,7 @@ export const OptimizationVisualizer = () => {
     const lastStep = optimizationData[optimizationData.length - 1];
 
     return (
-        <div className="absolute bottom-24 right-4 w-80 bg-aegis-bg/90 border border-aegis-secondary/50 p-4 rounded-lg backdrop-blur-md animate-slide-up">
+        <div className="w-80 bg-aegis-bg/90 border border-aegis-secondary/50 p-4 rounded-lg backdrop-blur-md animate-slide-up">
             <h3 className="text-aegis-secondary font-orbitron text-sm mb-2 border-b border-aegis-secondary/30 pb-1 flex items-center gap-2">
                 <TrendingUp size={16} /> ML OPTIMIZER
             </h3>

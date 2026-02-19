@@ -5,7 +5,7 @@ export const ThreatPanel = () => {
     const { status, threatDetected } = useSimulationStore();
 
     return (
-        <div className={`absolute top-4 right-4 w-72 p-4 rounded-lg backdrop-blur-md border transition-all duration-500 ${threatDetected ? 'bg-red-950/80 border-red-500 shadow-[0_0_30px_rgba(255,0,0,0.4)] animate-pulse' : 'bg-aegis-bg/80 border-aegis-primary/30 shadow-[0_0_15px_rgba(0,243,255,0.2)]'}`}>
+        <div className={`w-80 p-4 rounded-lg backdrop-blur-md border transition-all duration-500 ${threatDetected ? 'bg-red-950/80 border-red-500 shadow-[0_0_30px_rgba(255,0,0,0.4)] animate-pulse' : 'bg-aegis-bg/80 border-aegis-primary/30 shadow-[0_0_15px_rgba(0,243,255,0.2)]'}`}>
             <h3 className={`font-orbitron text-lg mb-2 border-b pb-1 flex items-center justify-between ${threatDetected ? 'text-red-500 border-red-500/30' : 'text-aegis-primary border-aegis-primary/30'}`}>
                 <span className="flex items-center gap-2">
                     {threatDetected ? <AlertTriangle size={18} /> : <ShieldCheck size={18} />}

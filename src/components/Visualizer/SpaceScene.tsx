@@ -39,14 +39,23 @@ const Satellite = () => {
     // Animate satellite orbit
     useFrame(({ clock }) => {
         if (meshRef.current) {
-            const t = clock.getElapsedTime() * 0.1; // Slow orbit time
+            // Visual speed factor: 7.66 km/s (real) -> ~0.5 rad/s (visual)
+            const speedFactor = velocity / 15;
+            const t = clock.getElapsedTime() * speedFactor;
+
             const r = 3.5 + (altitude / 1000); // Scale altitude for visual
 
             // Simple circular orbit for visualization
-            const x = Math.cos(t) * r;
-            const z = Math.sin(t) * r;
+            let x = Math.cos(t) * r;
+            let z = Math.sin(t) * r;
+            let y = 0;
 
-            meshRef.current.position.set(x, 0, z);
+            // Evasion Visual: Deviate from plane
+            if (status === 'EVADING') {
+                y = Math.sin(t * 5) * 0.5; // Wobble/Maneuver visual
+            }
+
+            meshRef.current.position.set(x, y, z);
             meshRef.current.rotation.y = -t;
         }
     });
@@ -102,12 +111,13 @@ const OrbitPath = () => {
 };
 
 const AIPredictionPaths = () => {
-    const { status } = useSimulationStore();
+    const { status, velocity } = useSimulationStore();
 
     // Calculated based on current satellite position (mocked for visualizer static pos)
-    const current = new Vector3(4.2, 0, 0);
-    const linearPoints = useMemo(() => predictPathLinear(current, new Vector3(4.1, 0, 0.1), 20), []);
-    const lstmPoints = useMemo(() => predictPathLSTM({ position: current, velocity: new Vector3(0, 0, 7.66) }, 20), []);
+    const current = new Vector3(3.5, 0, 0); // Matches Satellite orbit R=3.5
+    // Use stored velocity for prediction input
+    const linearPoints = useMemo(() => predictPathLinear(current, new Vector3(3.5, 0, -0.1 * (velocity / 7.66)), 20), [velocity]);
+    const lstmPoints = useMemo(() => predictPathLSTM({ position: current, velocity: new Vector3(0, 0, velocity) }, 20), [velocity]);
 
     if (status !== 'EVADING' && status !== 'WARNING') return null;
 

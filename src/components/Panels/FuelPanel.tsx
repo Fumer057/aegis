@@ -7,7 +7,7 @@ export const FuelPanel = () => {
     const isLow = percentage < 20;
 
     return (
-        <div className="absolute bottom-4 left-4 w-64 bg-aegis-bg/80 border border-aegis-primary/30 p-4 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+        <div className="w-64 bg-aegis-bg/80 border border-aegis-primary/30 p-4 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(0,243,255,0.2)]">
             <h3 className={`font-orbitron text-lg mb-2 border-b  pb-1 flex items-center gap-2 ${isLow ? 'text-red-500 border-red-500/30' : 'text-aegis-primary border-aegis-primary/30'}`}>
                 {isLow ? <Battery size={18} /> : <BatteryCharging size={18} />} SYSTEM RESOURCES
             </h3>
