@@ -27,7 +27,7 @@ export const HeadsUpDisplay = () => {
             <div className="pointer-events-auto">
                 {/* Left Side */}
                 <ConfigPanel />
-                <div className="absolute top-16 left-4 space-y-2">
+                <div className="absolute top-12 left-4 space-y-2">
                     <TelemetryPanel />
                     <FuelPanel />
                     <OptimizationVisualizer />
@@ -42,23 +42,23 @@ export const HeadsUpDisplay = () => {
 
 
             {/* Controls */}
-            <div className="absolute bottom-8 right-8 flex flex-col gap-2 pointer-events-auto">
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-row gap-4 pointer-events-auto items-center">
                 <button
                     onClick={handleThreatToggle}
-                    className="bg-aegis-dark/80 border border-aegis-primary hover:bg-aegis-primary/20 text-aegis-primary px-4 py-2 rounded font-orbitron transition-all"
+                    className="bg-aegis-dark/80 border border-aegis-primary hover:bg-aegis-primary/20 text-aegis-primary px-6 py-2 rounded font-orbitron transition-all whitespace-nowrap shadow-[0_0_15px_rgba(0,243,255,0.3)]"
                 >
                     {threatDetected ? "CLEAR THREAT" : "SIMULATE THREAT"}
                 </button>
                 <button
                     onClick={triggerEvasion}
                     disabled={!threatDetected}
-                    className={`px-4 py-2 rounded font-orbitron transition-all border ${threatDetected ? 'bg-red-900/50 border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer' : 'bg-gray-800/50 border-gray-700 text-gray-500 cursor-not-allowed'}`}
+                    className={`px-6 py-2 rounded font-orbitron transition-all border whitespace-nowrap shadow-[0_0_15px_rgba(255,0,0,0.3)] ${threatDetected ? 'bg-red-900/50 border-red-500 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer' : 'bg-gray-800/50 border-gray-700 text-gray-500 cursor-not-allowed'}`}
                 >
                     INITIATE EVASION
                 </button>
                 <button
                     onClick={resetSimulation}
-                    className="bg-aegis-dark/80 border border-white/20 hover:bg-white/10 text-white/70 px-4 py-2 rounded font-orbitron transition-all"
+                    className="bg-aegis-dark/80 border border-white/20 hover:bg-white/10 text-white/70 px-6 py-2 rounded font-orbitron transition-all whitespace-nowrap"
                 >
                     RESET SYSTEM
                 </button>
