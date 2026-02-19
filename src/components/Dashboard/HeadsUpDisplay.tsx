@@ -2,6 +2,9 @@ import { TelemetryPanel } from "../Panels/TelemetryPanel";
 import { FuelPanel } from "../Panels/FuelPanel";
 import { ThreatPanel } from "../Panels/ThreatPanel";
 import { useSimulationStore } from "../../store/simulationStore";
+import { ConfigPanel } from "./ConfigPanel";
+import { AIPanel } from "../Panels/AIPanel";
+import { OptimizationVisualizer } from "../Panels/OptimizationVisualizer";
 
 // UI Overlay
 export const HeadsUpDisplay = () => {
@@ -22,9 +25,12 @@ export const HeadsUpDisplay = () => {
 
             {/* Panels - Enable pointer events for them if they become interactive */}
             <div className="pointer-events-auto">
+                <ConfigPanel />
                 <TelemetryPanel />
                 <FuelPanel />
                 <ThreatPanel />
+                <AIPanel />
+                <OptimizationVisualizer />
             </div>
 
             {/* Controls */}

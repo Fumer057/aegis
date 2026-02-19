@@ -4,6 +4,8 @@ import { OrbitControls, Stars, Line, Sphere, Html } from '@react-three/drei';
 import { Vector3, CatmullRomCurve3 } from 'three';
 import { useSimulationStore } from '../../store/simulationStore';
 import { OrbitPredictor } from '../../modules/OrbitEngine';
+import { DebrisField } from './DebrisField';
+import { predictPathLinear, predictPathLSTM } from '../../modules/AIPrediction';
 
 const Earth = () => {
     return (
@@ -99,6 +101,27 @@ const OrbitPath = () => {
     );
 };
 
+const AIPredictionPaths = () => {
+    const { status } = useSimulationStore();
+
+    // Calculated based on current satellite position (mocked for visualizer static pos)
+    const current = new Vector3(4.2, 0, 0);
+    const linearPoints = useMemo(() => predictPathLinear(current, new Vector3(4.1, 0, 0.1), 20), []);
+    const lstmPoints = useMemo(() => predictPathLSTM({ position: current, velocity: new Vector3(0, 0, 7.66) }, 20), []);
+
+    if (status !== 'EVADING' && status !== 'WARNING') return null;
+
+    return (
+        <group>
+            {/* Linear Regression Prediction (Red/Error) */}
+            <Line points={linearPoints} color="red" opacity={0.5} transparent lineWidth={1} dashed dashScale={1} />
+
+            {/* LSTM Prediction (Green/Correct) */}
+            <Line points={lstmPoints} color="#00ff00" opacity={0.8} transparent lineWidth={2} />
+        </group>
+    );
+};
+
 export const SpaceScene = () => {
     return (
         <div className="w-full h-screen absolute top-0 left-0 -z-10 bg-aegis-bg">
@@ -109,7 +132,9 @@ export const SpaceScene = () => {
 
                 <Earth />
                 <Satellite />
+                <DebrisField />
                 <OrbitPath />
+                <AIPredictionPaths />
 
                 <OrbitControls enableZoom={true} enablePan={false} maxDistance={20} minDistance={3} />
                 <gridHelper args={[20, 20, 0x2e2e48, 0x111116]} position={[0, -2.5, 0]} />
