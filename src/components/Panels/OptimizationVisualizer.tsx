@@ -12,12 +12,12 @@ export const OptimizationVisualizer = () => {
     const lastStep = optimizationData[optimizationData.length - 1];
 
     return (
-        <div className="w-72 bg-aegis-bg/90 border border-aegis-secondary/50 p-4 rounded-lg backdrop-blur-md animate-slide-up shadow-[0_0_20px_rgba(0,255,100,0.1)]">
+        <div className="w-64 bg-aegis-bg/90 border border-aegis-secondary/50 p-4 rounded-lg backdrop-blur-md animate-slide-up shadow-[0_0_20px_rgba(0,255,100,0.1)]">
             <h3 className="text-aegis-secondary font-orbitron text-sm mb-2 border-b border-aegis-secondary/50 pb-1 flex items-center gap-2">
-                <TrendingUp size={24} /> ML VELOCITY OPTIMIZER
+                <TrendingUp size={18} /> ML OPTIMIZER
             </h3>
 
-            <div className="h-40 flex items-end gap-1.5 border-l border-b border-gray-600 p-1 relative bg-gray-900/30">
+            <div className="h-32 flex items-end gap-1 border-l border-b border-gray-600 p-1 relative bg-gray-900/30">
                 {optimizationData?.map((step, i) => (
                     <div
                         key={i}

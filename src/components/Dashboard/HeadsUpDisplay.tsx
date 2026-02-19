@@ -27,7 +27,7 @@ export const HeadsUpDisplay = () => {
             <div className="pointer-events-auto">
                 {/* Left Side */}
                 <ConfigPanel />
-                <div className="absolute top-24 left-4 space-y-4">
+                <div className="absolute top-16 left-4 space-y-2">
                     <TelemetryPanel />
                     <FuelPanel />
                     <OptimizationVisualizer />
