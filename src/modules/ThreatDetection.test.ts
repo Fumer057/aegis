@@ -3,14 +3,15 @@ import { detectThreats, SpaceObject } from './ThreatDetection';
 import { Vector3 } from 'three';
 
 describe('ThreatDetection', () => {
+
     it('should detect threats within range', () => {
         const satPos = new Vector3(0, 0, 0);
         const satVel = new Vector3(0, 0, 0);
 
         const threat: SpaceObject = {
             id: 'T1',
-            position: new Vector3(1000, 0, 0), // 1km away
-            velocity: new Vector3(-10, 0, 0), // Moving towards sat
+            position: new Vector3(1000, 0, 0),
+            velocity: new Vector3(-10, 0, 0),
             type: 'DEBRIS',
             radius: 10
         };
@@ -19,7 +20,7 @@ describe('ThreatDetection', () => {
 
         expect(result.detected).toBe(true);
         expect(result.severity).toBe('CRITICAL');
-        expect(result.timeToImpact).toBe(100); // 1000m / 10m/s
+        expect(result.timeToImpact).toBe(100);
     });
 
     it('should ignore threats moving away', () => {
@@ -29,7 +30,7 @@ describe('ThreatDetection', () => {
         const threat: SpaceObject = {
             id: 'T1',
             position: new Vector3(1000, 0, 0),
-            velocity: new Vector3(10, 0, 0), // Moving AWAY
+            velocity: new Vector3(10, 0, 0),
             type: 'DEBRIS',
             radius: 10
         };
@@ -38,4 +39,5 @@ describe('ThreatDetection', () => {
 
         expect(result.detected).toBe(false);
     });
+
 });

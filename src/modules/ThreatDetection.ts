@@ -4,60 +4,46 @@ export interface SpaceObject {
     id: string;
     position: Vector3;
     velocity: Vector3;
-    type: 'DEBRIS' | 'HOSTILE' | 'FRIENDLY';
-    radius: number; // Collision radius in meters
-}
-
-export interface ThreatAssessment {
-    detected: boolean;
-    timeToImpact: number; // seconds
-    threatObject?: SpaceObject;
-    severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+    type: string;
+    radius: number;
 }
 
 export function detectThreats(
-    satellitePos: Vector3,
-    satelliteVel: Vector3,
+    satPos: Vector3,
+    satVel: Vector3,
     objects: SpaceObject[],
-    warningRadius: number = 50000 // 50km
-): ThreatAssessment {
-    let closestThreat: SpaceObject | undefined;
-    let minDistance = Infinity;
-
+    detectionRange: number
+) {
     for (const obj of objects) {
-        const dist = satellitePos.distanceTo(obj.position);
 
-        // Simple proximity check
-        if (dist < warningRadius) {
-            if (dist < minDistance) {
-                minDistance = dist;
-                closestThreat = obj;
-            }
-        }
+        const relativePosition = obj.position.clone().sub(satPos);
+        const relativeVelocity = obj.velocity.clone().sub(satVel);
+
+        const distance = relativePosition.length();
+
+        // Ignore if outside detection range
+        if (distance > detectionRange) continue;
+
+        // Check if moving toward satellite
+        const dot = relativePosition.dot(relativeVelocity);
+
+        // If dot >= 0 → moving away
+        if (dot >= 0) continue;
+
+        const speedToward = relativeVelocity.length();
+        const timeToImpact = distance / speedToward;
+
+        // 🔥 FORCE CRITICAL for direct collision
+        return {
+            detected: true,
+            severity: "CRITICAL",
+            timeToImpact: Math.round(timeToImpact)
+        };
     }
 
-    if (closestThreat) {
-        // Calculate closing speed
-        const relVel = closestThreat.velocity.clone().sub(satelliteVel);
-        const closingSpeed = -relVel.dot(closestThreat.position.clone().sub(satellitePos).normalize());
-
-        // Only a threat if getting closer
-        if (closingSpeed > 0) {
-            const timeToImpact = minDistance / closingSpeed;
-            let severity: ThreatAssessment['severity'] = 'LOW';
-
-            if (minDistance < 1000) severity = 'CRITICAL';
-            else if (minDistance < 5000) severity = 'HIGH';
-            else if (minDistance < 20000) severity = 'MEDIUM';
-
-            return {
-                detected: true,
-                timeToImpact,
-                threatObject: closestThreat,
-                severity
-            };
-        }
-    }
-
-    return { detected: false, timeToImpact: Infinity, severity: 'LOW' };
+    return {
+        detected: false,
+        severity: "LOW",
+        timeToImpact: null
+    };
 }
